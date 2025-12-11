@@ -6,6 +6,8 @@ export enum FlowStep {
   SUCCESS = 'SUCCESS'
 }
 
+export type AppView = 'Dashboard' | 'Projects' | 'Materials' | 'Orders' | 'Analytics' | 'Settings';
+
 export interface Material {
   id: string;
   name: string;

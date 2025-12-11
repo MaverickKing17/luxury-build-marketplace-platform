@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Material } from '../../types';
-import { SlidersHorizontal, Box, Eye, Info, ChevronRight, Check } from 'lucide-react';
+import { SlidersHorizontal, Box, Eye, ChevronRight, Check } from 'lucide-react';
 
 // Mock Data
 const MOCK_MATERIALS: Material[] = [
@@ -82,43 +82,43 @@ export const ReviewView: React.FC<ReviewViewProps> = ({ onProceed }) => {
   return (
     <div className="flex h-[calc(100vh-4rem)]">
       {/* Filters Sidebar */}
-      <aside className="w-72 bg-white border-r border-slate-200 p-6 overflow-y-auto hidden lg:block">
-        <div className="flex items-center gap-2 mb-6">
-          <SlidersHorizontal className="w-5 h-5 text-slate-400" />
-          <h3 className="font-serif font-medium text-lg">Filters</h3>
+      <aside className="w-72 bg-white border-r border-slate-200 p-6 overflow-y-auto hidden lg:block shadow-[4px_0_24px_-4px_rgba(0,0,0,0.02)] z-10">
+        <div className="flex items-center gap-2 mb-8">
+          <SlidersHorizontal className="w-5 h-5 text-brand-gold" />
+          <h3 className="font-serif font-medium text-lg text-brand-dark">Refine Selection</h3>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">AI Match Score</h4>
-            <div className="space-y-2">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" defaultChecked className="rounded text-brand-dark focus:ring-brand-gold" />
-                <span className="text-sm text-slate-700">90% - 100% (Diamond)</span>
+            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">AI Match Score</h4>
+            <div className="space-y-3">
+              <label className="flex items-center gap-3 group cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-slate-300 text-brand-dark focus:ring-brand-gold" />
+                <span className="text-sm text-slate-700 group-hover:text-brand-dark transition-colors">90% - 100% (Diamond)</span>
               </label>
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="rounded text-brand-dark focus:ring-brand-gold" />
-                <span className="text-sm text-slate-700">80% - 89% (Platinum)</span>
+              <label className="flex items-center gap-3 group cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-brand-dark focus:ring-brand-gold" />
+                <span className="text-sm text-slate-700 group-hover:text-brand-dark transition-colors">80% - 89% (Platinum)</span>
               </label>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Category</h4>
-            <div className="space-y-2">
+          <div className="border-t border-slate-100 pt-6">
+            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Category</h4>
+            <div className="space-y-3">
               {['Stone', 'Wood', 'Metals', 'Fixtures', 'Textiles', 'Glass'].map(cat => (
-                 <label key={cat} className="flex items-center gap-2">
-                 <input type="checkbox" defaultChecked className="rounded text-brand-dark focus:ring-brand-gold" />
-                 <span className="text-sm text-slate-700">{cat}</span>
+                 <label key={cat} className="flex items-center gap-3 group cursor-pointer">
+                 <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-slate-300 text-brand-dark focus:ring-brand-gold" />
+                 <span className="text-sm text-slate-700 group-hover:text-brand-dark transition-colors">{cat}</span>
                </label>
               ))}
             </div>
           </div>
           
-           <div>
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Lead Time</h4>
-            <input type="range" className="w-full accent-brand-dark" />
-            <div className="flex justify-between text-xs text-slate-500 mt-1">
+           <div className="border-t border-slate-100 pt-6">
+            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Lead Time</h4>
+            <input type="range" className="w-full accent-brand-gold h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer" />
+            <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
               <span>Immediate</span>
               <span>12 Weeks</span>
             </div>
@@ -127,88 +127,94 @@ export const ReviewView: React.FC<ReviewViewProps> = ({ onProceed }) => {
       </aside>
 
       {/* Main Grid */}
-      <main className="flex-1 p-8 overflow-y-auto bg-slate-50 relative">
-        <div className="flex justify-between items-end mb-8">
+      <main className="flex-1 p-8 overflow-y-auto bg-slate-50/50 relative">
+        <div className="flex justify-between items-end mb-10">
           <div>
-            <h1 className="text-3xl font-serif text-brand-dark mb-2">Material Selection</h1>
-            <p className="text-slate-600">Review AI-matched specifications based on your architectural drawings.</p>
+            <h1 className="text-4xl font-serif text-brand-dark mb-3">Curated Materials</h1>
+            <p className="text-slate-500 max-w-2xl text-lg font-light">AI has matched 4 premium materials based on your architectural specifications and sustainability targets.</p>
           </div>
-          <div className="flex gap-3">
-             <Button variant="outline" onClick={() => setShowAR(true)}>
-               <Box className="w-4 h-4 mr-2" />
-               Visualize in AR/VR
+          <div className="flex gap-4">
+             <Button variant="outline" onClick={() => setShowAR(true)} className="bg-white hover:bg-slate-50 border-slate-200 shadow-sm">
+               <Box className="w-4 h-4 mr-2 text-brand-gold" />
+               AR Visualization
              </Button>
-             <Button onClick={() => onProceed(Array.from(selectedMaterials))}>
+             <Button onClick={() => onProceed(Array.from(selectedMaterials))} className="shadow-lg shadow-brand-dark/20">
                Proceed to Quote
                <ChevronRight className="w-4 h-4 ml-2" />
              </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {MOCK_MATERIALS.map((material) => (
             <div 
               key={material.id} 
               className={`
-                group relative bg-white rounded-lg border transition-all duration-300 hover:shadow-xl
-                ${selectedMaterials.has(material.id) ? 'border-brand-gold ring-1 ring-brand-gold' : 'border-slate-200'}
+                group relative bg-white rounded-xl overflow-hidden transition-all duration-300 
+                ${selectedMaterials.has(material.id) 
+                  ? 'border border-brand-gold shadow-[0_0_0_1px_rgba(212,175,55,1)] shadow-brand-gold/20' 
+                  : 'border border-slate-200 hover:border-brand-gold/50 hover:shadow-xl hover:shadow-brand-dark/5'}
               `}
             >
-              {/* Image Area */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg bg-slate-100">
+              {/* Image Area - "Rolls Royce" visual fidelity */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
                 <img 
                   src={material.imageUrl} 
                   alt={material.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                 />
-                <div className="absolute top-3 left-3 flex flex-col gap-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+                
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {material.isAiRecommended && <Badge type="ai" text={`${material.matchScore}% Match`} />}
-                  <Badge type="provenance" text="Web3 Verified" />
                 </div>
-                <button 
-                   onClick={() => setShowAR(true)}
-                   className="absolute bottom-3 right-3 bg-white/90 backdrop-blur text-slate-900 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-gold hover:text-white"
-                >
-                  <Eye className="w-4 h-4" />
-                </button>
+                
+                <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+                   <Badge type="provenance" text="Verified" />
+                   <button 
+                     onClick={() => setShowAR(true)}
+                     className="bg-white/20 backdrop-blur-md border border-white/30 text-white p-2.5 rounded-full hover:bg-brand-gold hover:border-brand-gold transition-all duration-300"
+                   >
+                    <Eye className="w-4 h-4" />
+                   </button>
+                </div>
               </div>
 
               {/* Content Area */}
-              <div className="p-5">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h3 className="font-serif font-semibold text-lg text-brand-dark">{material.name}</h3>
-                    <p className="text-xs text-slate-500 uppercase tracking-wide">{material.supplier}</p>
+              <div className="p-6">
+                <div className="mb-4">
+                  <div className="flex justify-between items-baseline mb-1">
+                     <p className="text-xs font-semibold text-brand-gold uppercase tracking-wider">{material.category}</p>
+                     <p className="font-serif text-lg font-medium text-brand-dark">${material.pricePerUnit} <span className="text-xs font-sans text-slate-400 font-normal">/ {material.unit}</span></p>
                   </div>
-                  <div className="text-right">
-                    <p className="font-medium text-slate-900">${material.pricePerUnit}</p>
-                    <p className="text-xs text-slate-500">per {material.unit}</p>
-                  </div>
+                  <h3 className="font-serif font-semibold text-xl text-brand-dark leading-tight group-hover:text-brand-gold transition-colors">{material.name}</h3>
+                  <p className="text-xs text-slate-500 mt-1">{material.supplier}</p>
                 </div>
 
-                <p className="text-sm text-slate-600 mb-4 line-clamp-2">{material.description}</p>
+                <p className="text-sm text-slate-600 mb-6 leading-relaxed line-clamp-2">{material.description}</p>
 
-                <div className="flex items-center gap-4 text-xs text-slate-500 mb-6 border-t border-slate-100 pt-3">
-                   <div className="flex items-center gap-1">
-                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <div className="flex items-center gap-4 text-xs font-medium text-slate-500 mb-6 pt-4 border-t border-slate-100">
+                   <div className="flex items-center gap-1.5 text-emerald-600">
+                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                      In Stock
                    </div>
-                   <div>Lead Time: {material.leadTimeWeeks} wks</div>
+                   <div className="w-px h-3 bg-slate-200"></div>
+                   <div>Lead: {material.leadTimeWeeks} weeks</div>
                 </div>
 
                 <button 
                   onClick={() => toggleSelection(material.id)}
                   className={`
-                    w-full py-2.5 rounded-sm text-sm font-medium transition-colors flex items-center justify-center gap-2
+                    w-full py-3 rounded-md text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 border
                     ${selectedMaterials.has(material.id) 
-                      ? 'bg-brand-dark text-white' 
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}
+                      ? 'bg-brand-dark text-white border-brand-dark hover:bg-slate-800' 
+                      : 'bg-white text-brand-dark border-slate-200 hover:border-brand-dark hover:bg-slate-50'}
                   `}
                 >
                   {selectedMaterials.has(material.id) ? (
-                    <><Check className="w-4 h-4" /> Selected</>
+                    <><Check className="w-4 h-4" /> Material Selected</>
                   ) : (
-                    'Add to Project'
+                    'Add to Project Spec'
                   )}
                 </button>
               </div>
@@ -219,30 +225,33 @@ export const ReviewView: React.FC<ReviewViewProps> = ({ onProceed }) => {
 
       {/* AR Modal Overlay Mock */}
       {showAR && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-8 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-xl overflow-hidden max-w-4xl w-full shadow-2xl">
-            <div className="h-[500px] bg-slate-900 relative">
-               <img src="https://picsum.photos/id/10/800/500" className="w-full h-full object-cover opacity-60" alt="AR Room" />
-               <div className="absolute inset-0 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-brand-dark/90 flex items-center justify-center p-8 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="bg-white rounded-2xl overflow-hidden max-w-5xl w-full shadow-2xl flex flex-col h-[80vh]">
+            <div className="flex-1 bg-slate-900 relative group overflow-hidden">
+               <img src="https://picsum.photos/id/10/1200/800" className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-[20s]" alt="AR Room" />
+               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                  <div className="text-center text-white">
-                   <Box className="w-16 h-16 mx-auto mb-4 text-brand-gold animate-bounce" />
-                   <h3 className="text-2xl font-serif">Loading AR Environment...</h3>
-                   <p className="text-slate-300">Calibrating spatial anchors for accurate material overlay.</p>
+                   <div className="w-20 h-20 mx-auto mb-6 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm">
+                      <Box className="w-10 h-10 text-brand-gold animate-pulse" />
+                   </div>
+                   <h3 className="text-3xl font-serif mb-2">Initializing Spatial Environment</h3>
+                   <p className="text-slate-300 font-light">Lidar scanning room dimensions...</p>
                  </div>
                </div>
                
-               {/* AR Controls UI Mock */}
-               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 bg-black/50 backdrop-blur rounded-full px-6 py-3 border border-white/10">
-                 <button className="text-white text-sm font-medium hover:text-brand-gold">Lighting: Natural</button>
-                 <div className="w-px bg-white/20"></div>
-                 <button className="text-white text-sm font-medium hover:text-brand-gold">Scale: 1:1</button>
-                 <div className="w-px bg-white/20"></div>
-                 <button className="text-white text-sm font-medium hover:text-brand-gold">Export View</button>
+               {/* Premium AR Controls */}
+               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-1 bg-black/60 backdrop-blur-md rounded-full p-1 border border-white/10 shadow-2xl">
+                 <button className="px-6 py-2.5 rounded-full text-white text-sm font-medium hover:bg-white/10 transition-colors">Lighting</button>
+                 <button className="px-6 py-2.5 rounded-full bg-brand-gold text-brand-dark text-sm font-bold shadow-lg">Materials</button>
+                 <button className="px-6 py-2.5 rounded-full text-white text-sm font-medium hover:bg-white/10 transition-colors">Dimensions</button>
                </div>
             </div>
-            <div className="p-4 bg-brand-dark flex justify-between items-center">
-              <span className="text-white text-sm">Visualization Mode: High-Fidelity Raytracing</span>
-              <Button size="sm" variant="secondary" onClick={() => setShowAR(false)}>Close Viewer</Button>
+            <div className="p-5 bg-white border-t border-slate-200 flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                 <Badge type="ai" text="Raytracing Enabled" />
+                 <span className="text-slate-400 text-sm">Rendering at 4K resolution</span>
+              </div>
+              <Button variant="outline" onClick={() => setShowAR(false)}>Exit Viewer</Button>
             </div>
           </div>
         </div>
